@@ -13,6 +13,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <syslog.h>
+#include <sys/stat.h>
 #include <utils.h>
 
 #define THIS_FILE "utils.c"
@@ -56,4 +57,20 @@ void restoreConfig() {
 void retrieveDateAndTime(struct tm *pTmCallTime, char *pchDateTime) {
   // Format 'YYYY-MM-DD HH:MM:SS'
   strftime(pchDateTime, LENGTH_DATETIME_PARAM, "%Y-%m-%d %H:%M:%S", pTmCallTime);
+}
+
+int restartSyslog(void) {
+
+	if (system("/etc/init.d/syslog restart") != 0) {
+    return ERROR;
+  }
+
+	return SUCCESS;
+}
+
+int fileExist(char *pchFile) {
+
+	struct stat buffer;
+
+	return (stat(pchFile, &buffer) == 0);
 }

@@ -61,4 +61,8 @@ void restoreConfig();
 
 void retrieveDateAndTime(struct tm *pTmCallTime, char *pchDateTime);
 
+int restartSyslog(void);
+
+int fileExist(char *pchFile);
+
 #endif
