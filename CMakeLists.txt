@@ -10,7 +10,21 @@ if(APPLE)
 endif()
 
 include_directories( lib/include/ )
+
 file(GLOB headers "lib/include/*.h" )
 file(GLOB sources "lib/src/*.c" )
 
-add_library(utils SHARED ${sources} ${headers})
+IF(TESTS)
+
+  file(GLOB headers ${headers} "tests/include/*.h" )
+  file(GLOB sources ${sources} "tests/src/*.cpp" )
+
+  add_library(utils SHARED ${sources} ${headers})
+
+  target_link_libraries( utils CppUTest CppUTestExt )
+  add_executable( RunAllTests ${sources} ${headers} )
+  target_link_libraries(RunAllTests utils CppUTest CppUTestExt )
+
+ELSE()
+  add_library(utils SHARED ${sources} ${headers})
+ENDIF(TESTS)
