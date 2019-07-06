@@ -18,7 +18,7 @@
 
 #define THIS_FILE "utils.c"
 
-int msleep(int nMsec) {
+int u_msleep(int nMsec) {
   
   int sleepTime = nMsec * 1000;
 
@@ -31,21 +31,21 @@ int msleep(int nMsec) {
   }
 }
 
-void logOpen(char *pchLogAppName, int facility) {
+void u_log_open(char *pchLogAppName, int facility) {
   openlog(pchLogAppName, 0, facility);
 }
 
-void logClose() {
+void u_log_close() {
   closelog();
 }
 
-void resetBoard() {
+void u_reset_board() {
 	char *pcCommand[] = {"reboot", NULL};
 
   execvp(pcCommand[0], pcCommand);
 }
 
-void restoreConfig() {
+void u_restore_config() {
 	system("rm -rf /data/*");
 	system("sync");
 	system("/etc/init.d/files_default start");
@@ -54,12 +54,12 @@ void restoreConfig() {
 	system("reboot");
 }
 
-void retrieveDateAndTime(struct tm *pTmCallTime, char *pchDateTime) {
+void u_retrieve_date_time(struct tm *pTmCallTime, char *pchDateTime) {
   // Format 'YYYY-MM-DD HH:MM:SS'
   strftime(pchDateTime, LENGTH_DATETIME_PARAM, "%Y-%m-%d %H:%M:%S", pTmCallTime);
 }
 
-int restartSyslog(void) {
+int u_restart_syslog(void) {
 
 	if (system("/etc/init.d/syslog restart") != 0) {
     return ERROR;
@@ -68,7 +68,7 @@ int restartSyslog(void) {
 	return SUCCESS;
 }
 
-int fileExist(char *pchFile) {
+int u_file_exist(char *pchFile) {
 
 	struct stat buffer;
 

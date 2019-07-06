@@ -49,20 +49,20 @@
  * LIB FUNCTIONS
  *************************************************************************/
 
-int msleep(int nMsec);
+int u_msleep(int nMsec);
 
-void logOpen(char *pchLogAppName, int facility);
+void u_log_open(char *pchLogAppName, int facility);
 
-void logClose();
+void u_log_close();
 
-void resetBoard();
+void u_reset_board();
 
-void restoreConfig();
+void u_restore_config();
 
-void retrieveDateAndTime(struct tm *pTmCallTime, char *pchDateTime);
+void u_retrieve_date_time(struct tm *pTmCallTime, char *pchDateTime);
 
-int restartSyslog(void);
+int u_restart_syslog(void);
 
-int fileExist(char *pchFile);
+int u_file_exist(char *pchFile);
 
 #endif
