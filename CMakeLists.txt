@@ -28,3 +28,7 @@ IF(TESTS)
 ELSE()
   add_library(utils SHARED ${sources} ${headers})
 ENDIF(TESTS)
+
+install(TARGETS utils DESTINATION /usr/local/lib)
+install(FILES "lib/include/utils.h" DESTINATION /usr/local/include)
+install(FILES "lib/include/defTypes.h" DESTINATION /usr/local/include)
