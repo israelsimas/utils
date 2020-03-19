@@ -27,7 +27,7 @@ int u_msleep(int nMsec) {
   } else if (nMsec >= 0) {
     return sleep(nMsec/1000);
   } else {
-    return -1;
+    return ERROR;
   }
 }
 
@@ -40,9 +40,7 @@ void u_log_close() {
 }
 
 void u_reset_board() {
-	char *pcCommand[] = {"reboot", NULL};
-
-  execvp(pcCommand[0], pcCommand);
+	system("reboot");
 }
 
 void u_restore_config() {
@@ -51,7 +49,6 @@ void u_restore_config() {
 	system("/etc/init.d/files_default start");
 	system("/etc/init.d/mac start");
 	system("sync");
-	system("reboot");
 }
 
 void u_retrieve_date_time(struct tm *pTmCallTime, char *pchDateTime) {
@@ -61,7 +58,7 @@ void u_retrieve_date_time(struct tm *pTmCallTime, char *pchDateTime) {
 
 int u_restart_syslog(void) {
 
-	if (system("/etc/init.d/syslog restart") != 0) {
+	if (system(SYSLOG_RESTART_COMMAND) != 0) {
     return ERROR;
   }
 
