@@ -26,8 +26,8 @@ TEST_GROUP(Utils) {
 };
  
 TEST(Utils, Millisleep) {
-  CHECK_EQUAL(0,  msleep(100));
-  CHECK_EQUAL(0,  msleep(0));
-  CHECK_EQUAL(-1, msleep(-1));
-  CHECK_EQUAL(0, msleep(5000));
+  CHECK_EQUAL(0,  u_msleep(100));
+  CHECK_EQUAL(0,  u_msleep(0));
+  CHECK_EQUAL(-1, u_msleep(-1));
+  CHECK_EQUAL(0, u_msleep(5000));
 }
