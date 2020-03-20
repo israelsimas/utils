@@ -36,5 +36,5 @@ ELSE()
   
   install(TARGETS utils DESTINATION /usr/local/lib)
   install(FILES "lib/include/utils.h" DESTINATION /usr/local/include)
-  install(FILES "lib/include/defTypes.h" DESTINATION /usr/local/include)
+  install(FILES "lib/include/standard-types.h" DESTINATION /usr/local/include)
 ENDIF(TESTS)
