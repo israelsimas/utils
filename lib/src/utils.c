@@ -65,7 +65,7 @@ int u_restart_syslog(void) {
 	return SUCCESS;
 }
 
-int u_file_exist(char *pchFile) {
+bool u_file_exist(char *pchFile) {
 
 	struct stat buffer;
 

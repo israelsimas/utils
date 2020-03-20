@@ -15,6 +15,7 @@
  * INCLUDES
  **************************************************************************/
 #include <syslog.h>
+#include <standard-types.h>
 
 /**************************************************************************
  * DEFINITIONS
@@ -23,11 +24,18 @@
 #define LENGTH_DATETIME_PARAM	40
 #define USLEEP_MAX            (1000000 - 1)
 
-#define TRUE          1
-#define FALSE         0
+#ifndef	ERROR
+  #define	ERROR	-1
+#endif
 
-#define ERROR	        -1
-#define SUCCESS	      0
+#ifndef	SUCCESS
+  #define	SUCCESS	0
+#endif
+
+#define UNUSED_PARAMETER(x) (void)(x)
+
+/* Number of elements in an array */
+#define LENGTHOF(x) (sizeof(x) / sizeof((x)[0]))
 
 #define EMPTY_VALUE		0x00
 #define POINTER_NULL  '\0'
@@ -36,15 +44,31 @@
 
 #define SYSLOG_RESTART_COMMAND  "/etc/init.d/syslog restart"
 
+#if !defined( MAX )
+  #define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
+
+#if !defined( MIN )
+  #define MIN(a,b) ((a)<(b)?(a):(b))
+#endif
+
+#if !defined( max )
+  #define max(a,b) ((a)>(b)?(a):(b))
+#endif
+
+#if !defined( min )
+  #define min(a,b) ((a)<(b)?(a):(b))
+#endif
+
 #define log(str,...)      	PRINT_LOG((LOG_DEBUG | LOG_INFO),str,##__VA_ARGS__)
 #define log_error(str,...)  PRINT_ERROR_LOG(LOG_ERR,str,##__VA_ARGS__)
 
 #if 1 // SYSLOG or PRINTF
-  #define PRINT_LOG(out,str,...)          syslog(out, "%s | %s() | "str" | %d", THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
-  #define PRINT_ERROR_LOG(out,str,...)    syslog(out, "#Error# %s | %s() | "str" | %d", THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
+  #define PRINT_LOG(out,str,...)        syslog(out, "%s | %s() | "str" | %d", THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
+  #define PRINT_ERROR_LOG(out,str,...)  syslog(out, "#Error# %s | %s() | "str" | %d", THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
 #else
-	#define PRINT_LOG(out,str,...)          printf("%s | %s() | "str" | %d\n",THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
-  #define PRINT_ERROR_LOG(out,str,...)    printf("#Error# %s | %s() | "str" | %d\n",THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
+	#define PRINT_LOG(out,str,...)        printf("%s | %s() | "str" | %d\n",THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
+  #define PRINT_ERROR_LOG(out,str,...)  printf("#Error# %s | %s() | "str" | %d\n",THIS_FILE,__FUNCTION__,##__VA_ARGS__,__LINE__)
 #endif
 
 /*************************************************************************
@@ -102,6 +126,6 @@ int u_restart_syslog();
  *
  * @return int Indicate if file exist.
  */
-int u_file_exist(char *pchFile);
+bool u_file_exist(char *pchFile);
 
 #endif
