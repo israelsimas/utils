@@ -9,12 +9,20 @@
 #ifndef __STANDARD_TYPES_H__
 #define __STANDARD_TYPES_H__
 
-#ifndef __cplusplus
-  typedef int bool;
-  #define true  1
-  #define false 0
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#if defined(_MSC_VER) && _MSC_VER < 1900
+#	ifndef __cplusplus
+#		define bool char
+#		define true 1
+#		define false 0
+#	endif
 #else
-  #include <stdbool.h>
+#	ifndef __cplusplus
+#		include <stdbool.h>
+#	endif
 #endif
 
 typedef unsigned char 	byte; 	// 1 byte
@@ -49,6 +57,10 @@ typedef long long       S64;    /* signed int [-576460752303423488, 576460752303
 
 #ifndef OUT
   #define OUT
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif 

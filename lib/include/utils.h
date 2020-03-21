@@ -11,6 +11,10 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**************************************************************************
  * INCLUDES
  **************************************************************************/
@@ -127,5 +131,9 @@ int u_restart_syslog();
  * @return int Indicate if file exist.
  */
 bool u_file_exist(char *pchFile);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
