@@ -27,3 +27,27 @@ jobs:
       - name: Build
         run: make
         working-directory: ./build
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.12
+        with:
+          cmake-version: '3.16.x'
+
+      - name: Install CppuTest
+        run: sudo apt-get install cpputest
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prepare Makefile
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DTESTS=1
+
+      - name: Build
+        run: make
+        working-directory: ./build
