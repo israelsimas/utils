@@ -1,0 +1,29 @@
+name: Utils CI
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.12
+        with:
+          cmake-version: '3.16.x'
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prepare Makefile
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+
+      - name: Build
+        run: make
+        working-directory: ./build
